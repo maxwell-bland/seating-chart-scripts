@@ -42,6 +42,7 @@ router.post('/', function(req, res, next) {
 		subject: email.subject, // Subject line
 		text: email.text // plaintext body
 	};
+	console.log('Email sent: ' + email.text);
 
 	// send mail with defined transport object
 	transporter.sendMail(mailOptions, function(error, info){

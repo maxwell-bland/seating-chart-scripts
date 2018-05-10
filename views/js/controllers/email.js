@@ -33,9 +33,9 @@ function($rootScope, $scope, $state, $stateParams, $filter, resource, $uibModalI
         self.paragraph += "Exam Serial Number: [id]\n\n";
         self.paragraph += "Please be sure to put your Exam Serial Number on your exam.\n";
         self.paragraph += "Note: Exam Serial Number may change in future exams\n\n"
-        self.paragraph += "See you in class,\n[ ]";
+        self.paragraph += "See you in class,\nThe CSE 15L Team";
     } else {
-        self.paragraph += "\nSee you in lab,\n[ ]";
+        self.paragraph += "\nSee you in lab,\nThe CSE 15L Team";
     }
 
 
@@ -120,6 +120,27 @@ function($rootScope, $scope, $state, $stateParams, $filter, resource, $uibModalI
         return parsedText;
     }
 
+    self.generateFlaggedEmails = function(text) {
+        var changeStudents = self.nonnull.filter(function (student) {
+          return student.emailFlag;
+        });
+        var emails = changeStudents.map(function(student) {
+            var parsedText = self.parse(text, student);
+            self.docDefinition.content.push({text: parsedText, style: 'message'});
+
+            return {
+                email: student.email,
+                text: parsedText,
+                subject: self.subject
+            };
+        })
+
+        self.total = changeStudents.length;
+        self.failed = 0;
+        self.sent = 0;
+        self.errors = [];
+        self.sendEmails(emails);
+    }
 
     self.generateEmails = function(text) {
         var emails = self.nonnull.map(function(student) {

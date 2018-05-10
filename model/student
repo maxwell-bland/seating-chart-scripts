@@ -1,0 +1,14 @@
+
+var emptyStudent = {
+    firstName: 'EMPTY',
+    lastName: 'EMPTY',
+    email: null,
+    studentID: 0,
+    isLeftHanded: false,
+    exclude: false,
+    seat: {
+        id: subClass[i][j].id,
+        x: subClass[i][j].x,
+        y: subClass[i][j].y
+    }
+};
